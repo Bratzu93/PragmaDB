@@ -82,15 +82,15 @@ echo<<<END
 END;
 		}
 		else{
-			$identificativof=lcfirst($identificativof);
-			$identificativof=mysql_escape_string($identificativof);
-			$namef=mysql_escape_string($namef);
-			$descf=mysql_escape_string($descf);
-			$firstf=mysql_escape_string($firstf);
-			$firstpluralf=mysql_escape_string($firstpluralf);
-			$textf=mysql_escape_string($textf);
-			$pluralf=mysql_escape_string($pluralf);
 			$conn=sql_conn();
+			$identificativof=lcfirst($identificativof);
+			$identificativof=mysqli_real_escape_string($conn,$identificativof);
+			$namef=mysqli_real_escape_string($conn,$namef);
+			$descf=mysqli_real_escape_string($conn,$descf);
+			$firstf=mysqli_real_escape_string($conn,$firstf);
+			$firstpluralf=mysqli_real_escape_string($conn,$firstpluralf);
+			$textf=mysqli_real_escape_string($conn,$textf);
+			$pluralf=mysqli_real_escape_string($conn,$pluralf);
 			$query="CALL insertGlossario('$identificativof','$namef','$descf',";
 			if($firstf==null){
 				$query=$query."null,";
@@ -116,7 +116,7 @@ END;
 			else{
 				$query=$query."'$pluralf')";
 			}
-			$query=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
+			$query=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
 			$title="Termine Glossario Inserito";
 			startpage_builder($title);
 echo<<<END

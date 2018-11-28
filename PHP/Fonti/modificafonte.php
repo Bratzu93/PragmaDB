@@ -58,14 +58,14 @@ END;
 			}
 		}
 		else{
-			$nomef=mysql_escape_string($nomef);
-			$descf=mysql_escape_string($descf);
 			$conn=sql_conn();
+			$nomef=mysqli_real_escape_string($conn,$nomef);
+			$descf=mysqli_real_escape_string($conn,$descf);
 			$timestamp_query="SELECT f.Time
 							  FROM Fonti f
 							  WHERE f.CodAuto='$id'";
-			$timestamp_query=mysql_query($timestamp_query,$conn) or fail("Query fallita: ".mysql_error($conn));
-			if($row=mysql_fetch_row($timestamp_query)){
+			$timestamp_query=mysqli_query($timestamp_query,$conn) or fail("Query fallita: ".mysqli_error($conn));
+			if($row=mysqli_fetch_row($timestamp_query)){
 				$timestamp_db=$row[0];
 				$timestamp_db=strtotime($timestamp_db);
 				if($timestampf<$timestamp_db){
@@ -80,7 +80,7 @@ END;
 				}
 				else{
 					$query="CALL modifyFonte('$id','$nomef','$descf');";
-					$query=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
+					$query=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
 					$title="Fonte Modificata";
 					startpage_builder($title);
 echo<<<END
@@ -107,14 +107,14 @@ END;
 	}
 	else{
 		$id=$_GET['id'];
-		$id=mysql_escape_string($id);
+		$id=mysqli_real_escape_string($conn,$id);
 		$conn=sql_conn();
 		$query="SELECT f.CodAuto, f.IdFonte, f.Nome, f.Descrizione, f.Time
 				FROM Fonti f
 				WHERE f.CodAuto='$id'";
-		$fonte=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
+		$fonte=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
 		$timestamp=time();
-		$row=mysql_fetch_row($fonte);
+		$row=mysqli_fetch_row($fonte);
 		if($row[0]==$id){
 			$title="Modifica Fonte - $row[1]";
 			startpage_builder($title);

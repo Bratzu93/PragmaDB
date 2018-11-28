@@ -59,11 +59,11 @@ END;
 			}
 		}
 		else{
-			$nomef=mysql_escape_string($nomef);
-			$descf=mysql_escape_string($descf);
 			$conn=sql_conn();
+			$nomef=mysqli_real_escape_string($conn,$nomef);
+			$descf=mysqli_real_escape_string($conn,$descf);
 			$query="CALL insertFonte('$nomef','$descf');";
-			$query=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
+			$query=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
 			$title="Fonte Inserita";
 			startpage_builder($title);
 echo<<<END

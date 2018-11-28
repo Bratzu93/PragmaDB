@@ -39,10 +39,10 @@ else{
 				WHERE t.Tipo='Unita'
 				ORDER BY CONVERT(SUBSTRING(t.IdTest,3),UNSIGNED INT)";
 	$conn=sql_conn();
-	//$ord=mysql_query($query_ord,$conn) or fail("Query fallita: ".mysql_error($conn));
+	//$ord=mysqli_query($query_ord,$conn) or fail("Query fallita: ".mysqli_error($conn));
 	foreach($queries as $ind => $query){
-		$test=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
-		$row=mysql_fetch_row($test);
+		$test=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
+		$row=mysqli_fetch_row($test);
 		if($row[0]!=null){
 echo<<<END
 \\subsection{{$sections[$ind]}}
@@ -55,7 +55,7 @@ echo<<<END
 \\endhead
 END;
 			testTex($conn, $row);
-			while($row=mysql_fetch_row($test)){
+			while($row=mysqli_fetch_row($test)){
 				testTex($conn, $row);
 			}
 echo<<<END

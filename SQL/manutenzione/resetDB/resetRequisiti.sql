@@ -17,7 +17,7 @@ DELIMITER ;
 
 SET @STATO = 'RESET_REQUISITI';
 SELECT @STATO;
-SOURCE <INSERIRE_PATH_ASSOLUTO>/pragmadb/SQL/manutenzione/resetDB/clear.sql;
-SOURCE <INSERIRE_PATH_ASSOLUTO>/pragmadb/SQL/manutenzione/resetDB/dropper.sql;
-SOURCE <INSERIRE_PATH_ASSOLUTO>/pragmadb/SQL/DDL/set_mysql_variables.sql;
-SOURCE <INSERIRE_PATH_ASSOLUTO>/pragmadb/SQL/DDL/Creation.sql;
+SOURCE C:/xampp/htdocs/pragmadb/SQL/manutenzione/resetDB/clear.sql;
+SOURCE C:/xampp/htdocs/pragmadb/SQL/manutenzione/resetDB/dropper.sql;
+SOURCE C:/xampp/htdocs/pragmadb/SQL/DDL/set_mysql_variables.sql;
+SOURCE C:/xampp/htdocs/pragmadb/SQL/DDL/Creation.sql;

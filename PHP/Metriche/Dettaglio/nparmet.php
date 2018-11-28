@@ -62,8 +62,8 @@ echo<<<END
 END;
 	$conn=sql_conn();
 	foreach($queries as $ind => $query){
-		$ris=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
-		if($row=mysql_fetch_row($ris)){
+		$ris=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
+		if($row=mysqli_fetch_row($ris)){
 echo<<<END
 
 				<h4 id="$abbr[$ind]" class="subtable-title">$tabletitle[$ind]</h4>
@@ -91,7 +91,7 @@ echo<<<END
 							</td>
 						</tr>
 END;
-			while($row=mysql_fetch_row($ris)){
+			while($row=mysqli_fetch_row($ris)){
 echo<<<END
 
 						<tr>
@@ -116,9 +116,9 @@ echo<<<END
 END;
 		}
 	}
-	$ris0=mysql_query($query0,$conn) or fail("Query fallita: ".mysql_error($conn));
+	$ris0=mysqli_query($query0,$conn) or fail("Query fallita: ".mysqli_error($conn));
 	$found=false;
-	if($row=mysql_fetch_row($ris0)){
+	if($row=mysqli_fetch_row($ris0)){
 		$found=true;
 echo<<<END
 
@@ -147,7 +147,7 @@ echo<<<END
 							</td>
 						</tr>
 END;
-		while($row=mysql_fetch_row($ris0)){
+		while($row=mysqli_fetch_row($ris0)){
 echo<<<END
 
 						<tr>
@@ -166,8 +166,8 @@ echo<<<END
 END;
 		}
 	}
-	$ris1=mysql_query($query1,$conn) or fail("Query fallita: ".mysql_error($conn));
-	if($row=mysql_fetch_row($ris1)){
+	$ris1=mysqli_query($query1,$conn) or fail("Query fallita: ".mysqli_error($conn));
+	if($row=mysqli_fetch_row($ris1)){
 		if($found==false){
 echo<<<END
 
@@ -201,7 +201,7 @@ echo<<<END
 							</td>
 						</tr>
 END;
-		while($row=mysql_fetch_row($ris0)){
+		while($row=mysqli_fetch_row($ris0)){
 echo<<<END
 
 						<tr>

@@ -41,16 +41,16 @@ else{
 			$err_desc=true;
 			$errori++;
 		}
-		$accf=mysql_escape_string($accf);
-		$nomef=mysql_escape_string($nomef);
-		$tipof=mysql_escape_string($tipof);
-		$descf=mysql_escape_string($descf);
 		$conn=sql_conn();
+		$accf=mysqli_real_escape_string($conn,$accf);
+		$nomef=mysqli_real_escape_string($conn,$nomef);
+		$tipof=mysqli_real_escape_string($conn,$tipof);
+		$descf=mysqli_real_escape_string($conn,$descf);
 		$query="SELECT m.CodAuto
 				FROM Attributo m
 				WHERE m.Nome='$nomef' AND m.Classe='$cl' AND m.CodAuto<>'$id'";
-		$pres=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
-		$pres=mysql_fetch_row($pres);
+		$pres=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
+		$pres=mysqli_fetch_row($pres);
 		if($pres[0]!=null){
 			$err_pres=true;
 			$errori++;
@@ -98,8 +98,8 @@ END;
 			$timestamp_query="SELECT c.Time
 							  FROM Classe c
 							  WHERE c.CodAuto='$cl'";
-			$timestamp_query=mysql_query($timestamp_query,$conn) or fail("Query fallita: ".mysql_error($conn));
-			if($row=mysql_fetch_row($timestamp_query)){
+			$timestamp_query=mysqli_query($timestamp_query,$conn) or fail("Query fallita: ".mysqli_error($conn));
+			if($row=mysqli_fetch_row($timestamp_query)){
 				$timestamp_db=$row[0];
 				$timestamp_db=strtotime($timestamp_db);
 				if($timestampf<$timestamp_db){
@@ -139,7 +139,7 @@ END;
 						$query=$query."'$descf',";
 					}
 					$query=$query."'$cl')";
-					$query=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
+					$query=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
 					$title="Metodo Modificato";
 					startpage_builder($title);
 echo<<<END
@@ -166,14 +166,14 @@ END;
 	}
 	else{
 		$id=$_GET['id'];
-		$id=mysql_escape_string($id);
+		$id=mysqli_real_escape_string($conn,$id);
 		$conn=sql_conn();
 		$query="SELECT m.CodAuto, m.AccessMod, m.Nome, m.ReturnType, m.Descrizione, c.PrefixNome, m.Classe
 				FROM Metodo m JOIN Classe c ON m.Classe=c.CodAuto
 				WHERE m.CodAuto='$id'";
-		$met=mysql_query($query,$conn) or fail("Query fallita: ".mysql_error($conn));
+		$met=mysqli_query($conn,$query) or fail("Query fallita: ".mysqli_error($conn));
 		$timestamp=time();
-		$metdb=mysql_fetch_row($met);
+		$metdb=mysqli_fetch_row($met);
 		if($metdb[0]==$id){
 			$title="$metdb[5] - Modifica $metdb[2]";
 			startpage_builder($title);
